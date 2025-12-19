@@ -1,0 +1,46 @@
+# Navigate to Garden Workflow
+# Base workflow that handles navigation from any starting location
+
+description: "Navigate to garden from current location"
+
+steps:
+  # Step 1: Check if in plant selection interface
+  - type: condition
+    condition: check_garden_zhongzhi
+    description: "Check if in plant selection interface"
+    on_true:
+      - type: action
+        action: icon_garden_return
+        description: "Return to garden from plant selection"
+        wait_after: 1.0
+        retry: 3
+    on_false: []
+
+  # Step 2: Check if already in garden
+  - type: condition
+    condition: check_is_in_garden
+    description: "Check if already in garden"
+    on_true: []  # Already in garden, continue
+    on_false:
+      # Step 3: Check if in music selection
+      - type: condition
+        condition: item_is_in_select_music
+        description: "Check if in music selection"
+        on_true:
+          - type: action
+            action: button_return
+            description: "Return from music selection"
+            wait_after: 1.0
+            retry: 3
+          - type: action
+            action: button_luxiaohuiting
+            description: "Enter garden from main menu"
+            wait_after: 1.5
+            retry: 3
+        on_false:
+          # In main menu, enter garden directly
+          - type: action
+            action: button_luxiaohuiting
+            description: "Enter garden from main menu"
+            wait_after: 1.5
+            retry: 3

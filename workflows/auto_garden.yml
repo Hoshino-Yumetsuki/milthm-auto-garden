@@ -1,0 +1,21 @@
+# Auto Garden Workflow
+# Main automation workflow with dynamic crop selection
+
+description: "Complete auto garden workflow with crop selection"
+
+steps:
+  # Step 1: Navigate to garden (from common folder)
+  - type: workflow
+    workflow: ./common/navigate_to_garden
+    description: "Navigate to garden interface"
+
+  # Step 2: Plant specified crop (from common folder)
+  - type: workflow
+    workflow: ./common/plant_crop
+    description: "Plant specified crop"
+    # crop_name parameter must be provided when executing this workflow
+
+  # Step 3: Start harvest monitoring
+  - type: workflow
+    workflow: ./common/monitor_harvest
+    description: "Monitor and auto-harvest"

@@ -1,0 +1,22 @@
+# Plant Shuangbaomuogu Workflow
+# High-level workflow that composes base workflows
+
+description: "Complete workflow to plant shuangbaomogu (double spore mushroom)"
+
+steps:
+  # Step 1: Navigate to garden (reuse base workflow from common folder)
+  - type: workflow
+    workflow: ./common/navigate_to_garden
+    description: "Navigate to garden interface"
+
+  # Step 2: Plant shuangbaomuogu (reuse base workflow with params from common folder)
+  - type: workflow
+    workflow: ./common/plant_crop
+    description: "Plant shuangbaomogu"
+    params:
+      crop_name: "shuangbaomogu"
+
+  # Step 3: Start harvest monitoring (reuse base workflow)
+  - type: workflow
+    workflow: ./common/monitor_harvest
+    description: "Monitor and auto-harvest"

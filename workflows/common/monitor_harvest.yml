@@ -1,0 +1,33 @@
+# Monitor Harvest Workflow
+# Continuous harvest monitoring event loop with auto-planting
+
+description: "Monitor and auto-harvest, auto-plant empty pots"
+
+steps:
+  - type: event_loop
+    name: "Harvest and Plant Monitor"
+    interval: 10.0
+    handlers:
+      # Handler 1: Auto harvest when crops are ready
+      - name: "Auto Harvest"
+        condition: check_icon_shouhuo
+        actions:
+          - type: action
+            action: icon_shouhuo
+            description: "Click harvest icon"
+            wait_after: 0.5
+            retry: 2
+
+          - type: action
+            action: button_shouhuo
+            description: "Click harvest button"
+            wait_after: 1.0
+            retry: 2
+
+      # Handler 2: Auto plant when empty pot detected
+      - name: "Auto Plant Empty Pot"
+        condition: check_konghuapen
+        actions:
+          - type: workflow
+            workflow: ./plant_crop
+            description: "Plant crop in empty pot"

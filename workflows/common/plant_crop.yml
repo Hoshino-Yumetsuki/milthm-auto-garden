@@ -1,0 +1,30 @@
+# Plant Crop Workflow
+# Generic workflow for planting any crop
+
+description: "Plant a crop in empty pot"
+
+steps:
+  - type: condition
+    condition: check_konghuapen
+    description: "Check if empty pot exists"
+    on_true:
+      - type: action
+        action: item_konghuapen
+        description: "Click empty pot"
+        wait_after: 0.5
+        retry: 3
+
+      - type: action
+        action: button_zhongzhi
+        description: "Click plant button"
+        wait_after: 1.0
+        retry: 3
+
+      - type: action
+        action: plant_crop
+        description: "Select and plant crop"
+        param: crop_name
+        wait_after: 1.0
+        retry: 3
+
+    on_false: []  # No empty pot, skip planting
