@@ -24,6 +24,18 @@ steps:
             wait_after: 1.0
             retry: 2
 
+          # Close reward screen if it appears
+          - type: condition
+            condition: check_icon_huode
+            description: "Check if reward screen appeared"
+            on_true:
+              - type: action
+                action: icon_huode
+                description: "Close reward screen"
+                wait_after: 0.5
+                retry: 2
+            on_false: []
+
       # Handler 2: Auto plant when empty pot detected
       - name: "Auto Plant Empty Pot"
         condition: check_konghuapen

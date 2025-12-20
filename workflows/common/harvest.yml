@@ -1,0 +1,29 @@
+# Harvest Workflow
+# Single harvest execution with reward screen handling
+
+description: "Execute harvest once and close reward screen"
+
+steps:
+  - type: action
+    action: icon_shouhuo
+    description: "Click harvest icon"
+    wait_after: 0.5
+    retry: 2
+
+  - type: action
+    action: button_shouhuo
+    description: "Click harvest button"
+    wait_after: 1.0
+    retry: 2
+
+  # Close the reward screen if it appears
+  - type: condition
+    condition: check_icon_huode
+    description: "Check if reward screen appeared"
+    on_true:
+      - type: action
+        action: icon_huode
+        description: "Close reward screen"
+        wait_after: 0.5
+        retry: 2
+    on_false: []

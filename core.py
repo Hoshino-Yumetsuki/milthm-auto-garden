@@ -162,6 +162,106 @@ def click_screen(x: int, y: int) -> None:
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x, y, 0, 0)
 
 
+def get_template_location(
+    template_path: str,
+    process_name: str = PROCESS_NAME,
+    threshold: float = MATCH_THRESHOLD,
+) -> Optional[Tuple[int, int, int, int]]:
+    """Get the location (x, y, w, h) of a template if it exists.
+
+    Args:
+        template_path: Path to the template image file
+        process_name: Name of the process to find
+        threshold: Match threshold
+
+    Returns:
+        Tuple of (x, y, w, h) if found, None otherwise.
+    """
+    hwnd = find_window_for_process(process_name)
+    if hwnd is None:
+        return None
+
+    bring_to_foreground(hwnd)
+    time.sleep(0.1)
+
+    template = cv2.imread(template_path, cv2.IMREAD_COLOR)
+    if template is None:
+        return None
+
+    screen, offset = capture_window(hwnd)
+    match = find_template_on_screen(screen, template, threshold, tuple(SCALES))
+
+    if match is None:
+        return None
+
+    x, y, w, h, score, scale = match
+    return (x, y, w, h)
+
+
+def find_all_template_locations(
+    template_path: str,
+    process_name: str = PROCESS_NAME,
+    threshold: float = MATCH_THRESHOLD,
+    min_distance: int = 50,
+) -> list[Tuple[int, int, int, int]]:
+    """Find all locations of a template on screen.
+
+    Uses non-maximum suppression to avoid duplicate detections.
+
+    Args:
+        template_path: Path to the template image file
+        process_name: Name of the process to find
+        threshold: Match threshold
+        min_distance: Minimum distance between detected locations
+
+    Returns:
+        List of (x, y, w, h) tuples for all matches.
+    """
+    hwnd = find_window_for_process(process_name)
+    if hwnd is None:
+        return []
+
+    bring_to_foreground(hwnd)
+    time.sleep(0.1)
+
+    template = cv2.imread(template_path, cv2.IMREAD_COLOR)
+    if template is None:
+        return []
+
+    screen, offset = capture_window(hwnd)
+    locations = []
+
+    # Try all scales and collect matches
+    for scale in SCALES:
+        scaled = cv2.resize(
+            template,
+            dsize=None,
+            fx=scale,
+            fy=scale,
+            interpolation=cv2.INTER_AREA if scale < 1.0 else cv2.INTER_CUBIC,
+        )
+        h, w = scaled.shape[:2]
+        if h > screen.shape[0] or w > screen.shape[1]:
+            continue
+
+        result = cv2.matchTemplate(screen, scaled, cv2.TM_CCOEFF_NORMED)
+        loc = np.where(result >= threshold)
+
+        for pt in zip(*loc[::-1]):
+            x, y = pt
+            # Check if this location is far enough from existing ones
+            is_new = True
+            for ex_x, ex_y, ex_w, ex_h in locations:
+                dist = ((x - ex_x) ** 2 + (y - ex_y) ** 2) ** 0.5
+                if dist < min_distance:
+                    is_new = False
+                    break
+            if is_new:
+                locations.append((x, y, w, h))
+
+    return locations
+
+
 def locate_and_click(
     template_path: str,
     process_name: str = PROCESS_NAME,

@@ -1,0 +1,22 @@
+# Plant Wuwangcao Workflow
+# High-level workflow that composes base workflows for planting wuwangcao (forget-me-not)
+
+description: "Complete workflow to plant wuwangcao (forget-me-not)"
+
+steps:
+  # Step 1: Navigate to garden (reuse base workflow from common folder)
+  - type: workflow
+    workflow: ./common/navigate_to_garden
+    description: "Navigate to garden interface"
+
+  # Step 2: Plant wuwangcao (reuse base workflow with params from common folder)
+  - type: workflow
+    workflow: ./common/plant_crop
+    description: "Plant wuwangcao"
+    params:
+      crop_name: "wuwangcao"
+
+  # Step 3: Start harvest monitoring (reuse base workflow)
+  - type: workflow
+    workflow: ./common/monitor_harvest
+    description: "Monitor and auto-harvest"

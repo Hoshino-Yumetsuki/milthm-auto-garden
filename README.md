@@ -1,6 +1,6 @@
 # Milthm Auto Garden - 模块化图像识别点击工具
 
-## 📁 项目结构
+## 项目结构
 
 ```
 milthm-auto-garden/
@@ -19,7 +19,7 @@ milthm-auto-garden/
 └── README.md        # 本文档
 ```
 
-## 🚀 快速开始
+## 快速开始
 
 ### 安装依赖
 
@@ -87,7 +87,7 @@ while True:
 python main.py assets/button/button_shouhuo.png
 ```
 
-## 📚 可用函数
+## 可用函数
 
 ### 按钮 (Button)
 
@@ -103,7 +103,7 @@ python main.py assets/button/button_shouhuo.png
 
 - `item_konghuapen()` - 点击"空花盆"物品
 
-## 🔧 函数参数
+## 函数参数
 
 所有函数都支持以下可选参数：
 
@@ -132,7 +132,7 @@ button_shouhuo(process_name="other_game.exe")
 button_shouhuo(process_name="game.exe", threshold=0.6)
 ```
 
-## 📝 添加新图片
+## 添加新图片
 
 要为新图片添加点击函数：
 
@@ -156,7 +156,7 @@ from functions import button_new_feature
 button_new_feature()
 ```
 
-## 🎯 高级用法
+## 高级用法
 
 ### 获取所有可用函数
 
@@ -194,7 +194,7 @@ for i in range(max_retries):
     time.sleep(1)
 ```
 
-## ⚙️ 配置
+## 配置
 
 可以在 `core.py` 中修改默认配置：
 
@@ -204,7 +204,7 @@ MATCH_THRESHOLD = 0.5         # 默认匹配阈值
 SCALES = [1.0, 0.95, 0.9, ...] # 模板匹配的缩放比例
 ```
 
-## 🐛 调试
+## 调试
 
 如果点击不准确或找不到图片：
 

@@ -27,4 +27,61 @@ steps:
         wait_after: 1.0
         retry: 3
 
-    on_false: []  # No empty pot, skip planting
+    on_false:
+      # No empty pot found, check if there are crops to harvest
+      - type: condition
+        condition: check_icon_shouhuo
+        description: "Check if crops ready to harvest"
+        on_true:
+          # Harvest crops to free up pots
+          - type: action
+            action: icon_shouhuo
+            description: "Click harvest icon"
+            wait_after: 0.5
+            retry: 2
+
+          - type: action
+            action: button_shouhuo
+            description: "Click harvest button"
+            wait_after: 1.0
+            retry: 2
+
+          # Close reward screen if it appears
+          - type: condition
+            condition: check_icon_huode
+            description: "Check if reward screen appeared"
+            on_true:
+              - type: action
+                action: icon_huode
+                description: "Close reward screen"
+                wait_after: 0.5
+                retry: 2
+            on_false: []
+
+          # Try planting again after harvest
+          - type: condition
+            condition: check_konghuapen
+            description: "Check again for empty pot after harvest"
+            on_true:
+              - type: action
+                action: item_konghuapen
+                description: "Click empty pot"
+                wait_after: 0.5
+                retry: 3
+
+              - type: action
+                action: button_zhongzhi
+                description: "Click plant button"
+                wait_after: 1.0
+                retry: 3
+
+              - type: action
+                action: plant_crop
+                description: "Select and plant crop"
+                param: crop_name
+                wait_after: 1.0
+                retry: 3
+
+            on_false: []  # Still no empty pot, skip
+
+        on_false: []  # No crops to harvest, skip planting
