@@ -1,4 +1,4 @@
-# Milthm Auto Garden Milthm 自动种菜
+# Milthm Auto Garden / Milthm 自动种菜
 
 ## 项目结构
 
