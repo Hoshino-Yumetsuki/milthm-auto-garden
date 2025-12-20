@@ -34,7 +34,7 @@ python main.py auto shuangbaomogu
 ```
 
 ```bash
-python main.py auto 勿忘草
+python main.py auto wuwangcao
 ```
 
 ## 可用函数
