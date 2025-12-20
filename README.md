@@ -1,4 +1,4 @@
-# Milthm Auto Garden - 模块化图像识别点击工具
+# Milthm Auto Garden Milthm 自动种菜
 
 ## 项目结构
 
@@ -27,64 +27,14 @@ milthm-auto-garden/
 uv pip install opencv-python numpy psutil pywin32 mss
 ```
 
-### 方法 1: 导入并使用函数（推荐）
-
-```python
-from functions import button_shouhuo, button_zhongzhi, icon_shouhuo
-
-# 点击收获按钮
-button_shouhuo()
-
-# 使用自定义阈值点击种植按钮
-button_zhongzhi(threshold=0.7)
-
-# 点击收获图标
-icon_shouhuo()
-```
-
-### 方法 2: 自动化脚本示例
-
-```python
-import time
-from functions import (
-    button_shouhuo,
-    button_zhongzhi,
-    icon_shouhuo,
-    item_konghuapen,
-)
-
-def auto_harvest():
-    """自动收获流程"""
-    if icon_shouhuo():  # 寻找收获图标
-        print("找到收获图标")
-        time.sleep(0.5)
-
-        if button_shouhuo():  # 点击收获按钮
-            print("收获完成！")
-            return True
-    return False
-
-def auto_plant():
-    """自动种植流程"""
-    if item_konghuapen():  # 选择空花盆
-        time.sleep(0.5)
-        if button_zhongzhi():  # 点击种植按钮
-            print("种植完成！")
-            return True
-    return False
-
-# 执行自动化
-while True:
-    auto_harvest()
-    time.sleep(2)
-    auto_plant()
-    time.sleep(2)
-```
-
-### 方法 3: 命令行使用（传统方式）
+### 使用
 
 ```bash
-python main.py assets/button/button_shouhuo.png
+python main.py auto shuangbaomogu
+```
+
+```bash
+python main.py auto 勿忘草
 ```
 
 ## 可用函数
