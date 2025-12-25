@@ -164,7 +164,7 @@ class WorkflowEngine:
                     time.sleep(1.0)
 
         if optional:
-            print(f"[Action] ⊘ Failed but optional, continuing...")
+            print("[Action] ⊘ Failed but optional, continuing...")
             return True
 
         print(f"[Action] ✗ {description} failed")
@@ -176,7 +176,7 @@ class WorkflowEngine:
         """Execute a sub-workflow (workflow reference)."""
         workflow_name = workflow_data.get("workflow")
         if not workflow_name or not isinstance(workflow_name, str):
-            print(f"[Error] No workflow name specified in sub-workflow")
+            print("[Error] No workflow name specified in sub-workflow")
             return False
 
         description = workflow_data.get("description", f"Sub-workflow: {workflow_name}")
@@ -207,10 +207,10 @@ class WorkflowEngine:
         try:
             result = condition_func()
             if result:
-                print(f"[Condition] ✓ True - executing true branch")
+                print("[Condition] ✓ True - executing true branch")
                 return self._execute_steps(on_true, params)
             else:
-                print(f"[Condition] ✗ False - executing false branch")
+                print("[Condition] ✗ False - executing false branch")
                 return self._execute_steps(on_false, params)
         except Exception as e:
             print(f"[Condition] ✗ Error: {e}")
@@ -240,7 +240,7 @@ class WorkflowEngine:
 
                 time.sleep(interval)
         except KeyboardInterrupt:
-            print(f"\n[EventLoop] Stopped by user")
+            print("\n[EventLoop] Stopped by user")
             return True
 
         return True
@@ -278,7 +278,7 @@ class WorkflowStep:
                 if attempt < self.retry_count - 1:
                     time.sleep(self.retry_delay)
         if self.optional:
-            print(f"[Workflow] ⊘ Failed but optional, continuing...")
+            print("[Workflow] ⊘ Failed but optional, continuing...")
             return True
         print(f"[Workflow] ✗ {self.name} failed")
         return False
@@ -297,12 +297,12 @@ class ConditionalStep:
         print(f"\n[Workflow] Checking condition: {self.name}")
         try:
             if self.condition():
-                print(f"[Workflow] ✓ Condition True")
+                print("[Workflow] ✓ Condition True")
                 for step in self.true_steps:
                     if not step.execute():
                         return False
             else:
-                print(f"[Workflow] ✗ Condition False")
+                print("[Workflow] ✗ Condition False")
                 if self.false_steps:
                     for step in self.false_steps:
                         if not step.execute():
@@ -483,7 +483,7 @@ class EventLoop:
                 time.sleep(self.check_interval)
 
         except KeyboardInterrupt:
-            print(f"\n[EventLoop] Interrupted by user")
+            print("\n[EventLoop] Interrupted by user")
         finally:
             self.running = False
             print(f"\n{'='*60}")

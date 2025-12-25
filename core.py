@@ -15,9 +15,9 @@ import numpy as np
 import psutil
 import mss
 import win32con
-import win32gui
-import win32process
-import win32api
+import win32gui  # ty:ignore[unresolved-import]
+import win32process  # ty:ignore[unresolved-import]
+import win32api  # ty:ignore[unresolved-import]
 
 
 # Configuration constants
@@ -92,7 +92,7 @@ def bring_to_foreground(hwnd: int) -> bool:
 
         # Verify it worked
         return win32gui.GetForegroundWindow() == hwnd
-    except Exception as exc:
+    except Exception:
         # Silently handle common SetForegroundWindow failures
         # This often happens but doesn't prevent image detection
         return False

@@ -19,7 +19,6 @@ from core import (
     check_exists,
     locate_and_click_multi,
     check_exists_multi,
-    get_template_location,
     PROCESS_NAME,
     MATCH_THRESHOLD,
 )
