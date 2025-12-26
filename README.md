@@ -24,7 +24,7 @@ milthm-auto-garden/
 ### 安装依赖
 
 ```bash
-uv pip install opencv-python numpy psutil pywin32 mss
+pip install opencv-python numpy psutil pywin32 mss
 ```
 
 ### 使用

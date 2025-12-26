@@ -1,0 +1,23 @@
+[workspace]
+authors = ["Hoshino-Yumetsuki"]
+channels = ["conda-forge"]
+name = "milthm-auto-garden"
+platforms = ["win-64"]
+version = "0.1.0"
+
+[pypi-options]
+index-url = "https://mirrors.ustc.edu.cn/pypi/web/simple"
+extra-index-urls = ["https://mirrors.ustc.edu.cn/pypi/web/simple"]
+
+[tasks]
+
+[dependencies]
+numpy = ">=2.4.0,<3"
+pywin32 = ">=311,<312"
+pyyaml = ">=6.0.3,<7"
+psutil = ">=7.2.0,<8"
+python = "~=3.12"
+
+[pypi-dependencies]
+opencv-python = ">=4.11.0.86, <5"
+mss = ">=10.1.0, <11"
