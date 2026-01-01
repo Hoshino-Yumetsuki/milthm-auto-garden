@@ -15,13 +15,13 @@ steps:
           - type: action
             action: icon_shouhuo
             description: "Click harvest icon"
-            wait_after: 0.5
+            wait_after: 1
             retry: 2
 
           - type: action
             action: button_shouhuo
             description: "Click harvest button"
-            wait_after: 1.0
+            wait_after: 2
             retry: 2
 
           # Close reward screen if it appears
@@ -32,7 +32,7 @@ steps:
               - type: action
                 action: icon_huode
                 description: "Close reward screen"
-                wait_after: 0.5
+                wait_after: 2
                 retry: 2
             on_false: []
 
